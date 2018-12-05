@@ -9,15 +9,15 @@ object Day05 {
     private fun react(string: String, vararg skip: Char): Int {
         val stack = Stack<Char>()
 
-        string.forEach {
-            if (it in skip) {
-                // no-op
-            } else if (stack.empty().not() && abs(stack.peek() - it) == lcUcDiff) {
-                stack.pop()
-            } else {
-                stack.push(it)
+        string.asSequence()
+            .filter { it !in skip }
+            .forEach {
+                if (stack.empty().not() && abs(stack.peek() - it) == lcUcDiff) {
+                    stack.pop()
+                } else {
+                    stack.push(it)
+                }
             }
-        }
 
         return stack.size
     }
